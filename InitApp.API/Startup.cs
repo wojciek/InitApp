@@ -57,4 +57,6 @@ namespace InitApp.API
       //services.AddTransient<ISomeRepo, SomeRepo>();
     }
   }
+
+
 }
