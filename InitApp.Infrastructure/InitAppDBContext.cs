@@ -32,6 +32,8 @@ namespace InitApp.Infrastructure
         .AddJsonFile("appsettings.json")
         .Build();
 
+
+
         optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
       }
     }

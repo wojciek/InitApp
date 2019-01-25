@@ -4,4 +4,17 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Sample\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ensure.That" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InitApp.Domain\InitApp.Domain.csproj" />
+    <ProjectReference Include="..\InitApp.Models\InitApp.Models.csproj" />
+  </ItemGroup>
+
 </Project>

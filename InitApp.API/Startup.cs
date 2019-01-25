@@ -1,6 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using InitApp.AppService.AppUser;
+using InitApp.Domain.AppUser;
+using InitApp.Domain.UnitOfWork;
+using InitApp.Infrastructure;
+using InitApp.Infrastructure.Domain;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,7 +32,8 @@ namespace InitApp.API
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
       services.AddSingleton(Configuration);
-      //services.AddDbContext<DbContextClassName>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+      services.AddDbContext<InitAppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
 
       RegisterDependencies(services);
     }
@@ -53,7 +60,11 @@ namespace InitApp.API
 
     public static void RegisterDependencies(IServiceCollection services)
     {
-      //services.AddTransient<IUnitOfWork, UnitOfWork>();
+      services.AddTransient<IUnitOfWork, UnitOfWork>();
+      services.AddTransient<IAppUserRepository, AppUserRepository>();
+      services.AddTransient<IAppUserService, AppUserService>();
+      services.AddTransient<UsersServiceUseCase, UsersServiceUseCase>();
+
       //services.AddTransient<ISomeRepo, SomeRepo>();
     }
   }

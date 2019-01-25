@@ -4,4 +4,17 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Infrastructure\Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\InitApp.Domain\InitApp.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -14,6 +14,7 @@ namespace InitApp.Infrastructure
     {
       builder.ToTable("Sample");
       builder.HasKey(sample => sample.Id);
+      builder.Property(sample => sample.Name).IsRequired();
     }
   }
 
@@ -32,6 +33,8 @@ namespace InitApp.Infrastructure
     {
       builder.ToTable("AppUser");
       builder.HasKey(appuser => appuser.Id);
+      builder.HasIndex(appuser => appuser.Username).IsUnique();
+      builder.Property(appuser => appuser.Username).IsRequired();
 
     }
   }
