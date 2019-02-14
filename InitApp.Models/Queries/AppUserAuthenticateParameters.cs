@@ -1,4 +1,4 @@
-﻿using Common.Infrastructure;
+﻿using Common.Infrastructure.CQRS;
 using InitApp.Domain.AppUser;
 
 

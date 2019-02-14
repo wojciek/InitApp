@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Common.Infrastructure;
+using Common.Infrastructure.CQRS;
 using InitApp.Domain.AppUser;
 using InitApp.Domain.Sample;
 

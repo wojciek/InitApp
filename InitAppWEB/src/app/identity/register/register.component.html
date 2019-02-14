@@ -1,0 +1,26 @@
+<div class="col-lg-6 m-auto">
+  <h3 class="text-center">Register new user</h3>
+  <hr>
+  <div class="wrapper bg-light">
+    <form class="form-signin" [formGroup]="registerForm"> 
+      <div class="form-group text-center">    
+        <label>Username</label>
+        <input name="username" type="text" id="username" class="form-control" formControlName="username">
+        <small *ngIf="!registerForm.get('username').valid && registerForm.get('username').dirty" class="form-text text-danger">Username is required!</small>
+      </div>
+      <div class="form-group text-center">
+        <label>Password</label>
+        <input name="password" type="password" id="password" class="form-control" formControlName="password">   
+        <small *ngIf="!registerForm.get('password').valid && registerForm.get('password').dirty" class="form-text text-danger">Password is required!</small>
+      </div>
+      <div class="form-group text-center">
+        <label>Wallet Money Amount</label>
+        <input name="moneyAmount" type="number" id="moneyAmount" class="form-control" formControlName="moneyAmount">   
+        <small *ngIf="!registerForm.get('moneyAmount').valid && registerForm.get('moneyAmount').dirty" class="form-text text-danger">Money Amount is required! Range (1-10000)!</small>
+      </div>
+      <button (click) = "back()" class="btn btn-info"><i class="material-icons">keyboard_backspace</i> Back</button>   
+      <button (click) = "onSubmit(registerForm)" class="btn btn-success float-right" type="submit">Register</button> 
+      <small class="form-text text-danger text-center">{{errorInfo}}</small>
+    </form>
+  </div>
+  </div>
