@@ -48,5 +48,7 @@ namespace InitApp.AppService.AppUser
     {
       return _appUserService.GetById(id);
     }
+
+
   }
 }

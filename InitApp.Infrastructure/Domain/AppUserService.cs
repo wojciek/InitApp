@@ -17,6 +17,7 @@ namespace InitApp.Infrastructure.Domain
       _context = context;
       _appUserRepository = appUserRepository;
     }
+
     public void Create(AppUser user, string password)
     {
       Ensure.That(user, nameof(user)).IsNotNull();
