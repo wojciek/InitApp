@@ -11,7 +11,7 @@ export class AuthService {
 
   loggedInUserName$: Observable<string>;
   loggedInUserId: string;
-  private isUserLoggedIn: boolean = false;
+  private isUserLoggedIn = false;
   loginFailureStatus: string;
   registerFailureStatus: string;
 

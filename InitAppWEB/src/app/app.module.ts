@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './auth/auth.service';
 import { IdentityModule } from './identity/identity.module';
 import { IdentityRoutingModule } from './identity/identity-routing.module';
 import { AuthCanLoadGuard } from './guards/auth-can-load.guard';
+import { SamplesModule } from './samples/samples.module';
+import { CoreModule } from './core-module/core-module.module';
+import { SharedModule } from './shared-module/shared-module.module';
 
 @NgModule({
   declarations: [
@@ -14,10 +16,12 @@ import { AuthCanLoadGuard } from './guards/auth-can-load.guard';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    CoreModule,
     AppRoutingModule,
     IdentityModule,
-    IdentityRoutingModule
+    IdentityRoutingModule,
+    SamplesModule,
+    SharedModule
   ],
   providers: [
     AuthService,

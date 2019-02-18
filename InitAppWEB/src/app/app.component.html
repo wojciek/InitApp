@@ -1,21 +1,9 @@
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <p *ngIf="!values"><em>Loading...</em></p>
- 
-  <div style="height: 350px; overflow: auto">
-    <table class='table' *ngIf="values">
-      <thead>
-        <tr>
-          <th>Values</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let value of values">
-          <td>{{ value }}</td>
-        </tr>
-      </tbody>
-    </table>
+<app-navbar *ngIf="isNavBarVisible"></app-navbar>
+  <div class="container">
+    <div class="row mt-3">
+        <app-currencies-list *ngIf="isNavBarVisible" class="col-lg-6"></app-currencies-list>
+
+        <div class="col-lg-6" [ngClass]="{'col-lg-12' : !isNavBarVisible}"><router-outlet></router-outlet></div>
+    </div>
   </div>
-</div>
+  <app-footer></app-footer>

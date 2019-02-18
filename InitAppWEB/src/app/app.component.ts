@@ -1,16 +1,18 @@
-import { Component, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit } from '@angular/core';
+import { LayoutService } from './shared-module/services/layout.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(private layoutService: LayoutService) {}
   title = 'app';
-  public values: string[];
-  constructor(private http: Http) {
-    this.http.get('http://localhost:5006/api/values').subscribe(result => {
-      this.values = result.json() as string[];
-    }, error => console.error(error));
+  isNavBarVisible = false;
+
+  ngOnInit() {
+    this.layoutService.navBarSource$.subscribe((isVisible) => {
+      this.isNavBarVisible = isVisible;
+    });
   }
 }
