@@ -97,6 +97,7 @@ namespace InitApp.API
       services.AddTransient<ISamplesQuery, SamplesQuery>();
       services.AddTransient<UsersServiceUseCase, UsersServiceUseCase>();
       services.AddTransient<GetAppUserSamplesUseCase, GetAppUserSamplesUseCase>();
+      services.AddTransient<GetSampleUseCase, GetSampleUseCase>();
 
       //services.AddTransient<ISomeRepo, SomeRepo>();
     }

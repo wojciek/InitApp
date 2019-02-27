@@ -11,12 +11,18 @@ namespace InitApp.API.Controllers
   public class SampleController : Controller
   {
     private readonly GetAppUserSamplesUseCase _getAppUserSamplesUseCase;
+    private readonly GetSampleUseCase _getSampleUseCase;
 
-    public SampleController(GetAppUserSamplesUseCase getAppUserSamplesUseCase)
+    public SampleController(
+      GetAppUserSamplesUseCase getAppUserSamplesUseCase,
+      GetSampleUseCase getSampleUseCase
+      )
     {
       Ensure.That(getAppUserSamplesUseCase, nameof(getAppUserSamplesUseCase)).IsNotNull();
+      Ensure.That(getSampleUseCase, nameof(getSampleUseCase)).IsNotNull();
 
       _getAppUserSamplesUseCase = getAppUserSamplesUseCase;
+      _getSampleUseCase = getSampleUseCase;
     }
     [HttpGet]
     [Route("samples/{appUserIdQuery}")]
@@ -26,20 +32,15 @@ namespace InitApp.API.Controllers
     }
 
     [HttpGet]
-    [Route("sample")]
-    public SampleDTO GetSample()
+    [Route("sample/{sampleNameQuery}")]
+    public SampleDTO GetSample(SampleQueryParameter queryCriteria)
     {
-      SampleDTO sample = new SampleDTO();
-      sample.Name = "Nazwa1";
-      sample.Category = "Kategoria 1";
-      sample.Description = "Opis sampla";
-      sample.Text = "Text text text text";
-      return sample;
+      return _getSampleUseCase.Handle(queryCriteria);
     }
 
     [HttpPost]
-    [Route("sample")]
-    public void AddNewSample()
+    [Route("sample/{id}")]
+    public void AddNewSample(int id, SampleDTO sample)
     {
 
     }

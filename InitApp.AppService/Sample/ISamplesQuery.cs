@@ -6,5 +6,7 @@ namespace InitApp.AppService.Sample
   public interface ISamplesQuery
   {
     List<SampleDTO> GetSamples(AppUserIdQueryParameter queryCriteria);
+
+    SampleDTO GetSample(SampleQueryParameter queryCriteria);
   }
 }

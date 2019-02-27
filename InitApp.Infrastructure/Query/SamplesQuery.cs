@@ -22,5 +22,16 @@ namespace InitApp.Infrastructure.Query
         Category = sample.Category
       }).ToList();
     }
+
+    public SampleDTO GetSample(SampleQueryParameter queryCriteria)
+    {
+      return _context.Samples.Select(sample => new SampleDTO()
+      {
+        Name = sample.Name,
+        Text = sample.Text,
+        Description = sample.Description,
+        Category = sample.Category
+      }).FirstOrDefault(x => x.Name == queryCriteria.SampleNameQuery);
+    }
   }
 }
