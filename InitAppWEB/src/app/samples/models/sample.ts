@@ -1,6 +1,6 @@
 export interface Sample {
-    Name: string;
-    Description: string;
-    Text: string;
-    Category: string;
+    name: string;
+    description: string;
+    text: string;
+    category: string;
 }

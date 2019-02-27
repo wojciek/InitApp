@@ -49,6 +49,15 @@ namespace InitApp.Infrastructure.Domain
 
     }
 
+    public bool Exist(int id)
+    {
+      if (_context.AppUsers.Any(x => x.Id == id))
+      {
+        return true;
+      }
+      throw new Exception("User not found!!!");
+    }
+
     public void AddUserAddress(AppUserAddress userAddress)
     {
       throw new NotImplementedException();

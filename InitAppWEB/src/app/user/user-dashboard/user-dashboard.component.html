@@ -1,0 +1,40 @@
+<h3>User Dashboard</h3>
+<h5>Edit User Data</h5> 
+<hr>
+<form [formGroup]="userDashboardForm">
+  <div class="form-group mt-2">
+    <label>Username</label>
+    <input formControlName ="username" type="username" class="form-control" id="username" placeholder="username">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group mt-2">
+    <label>Password</label>
+    <input formControlName ="password" type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <hr>
+  <div class="form-group mt-2">
+    <label>Address Line 1</label>
+    <input formControlName ="line1" type="text" class="form-control" id="line1" placeholder="line1">
+  </div>
+  <div class="form-group mt-2">
+    <label>Address Line 2</label>
+    <input formControlName ="line2" type="text" class="form-control" id="line2" placeholder="line2">
+  </div>
+  <div class="form-group mt-2">
+    <label>Address Line 3</label>
+    <input formControlName ="line3" type="text" class="form-control" id="line3" placeholder="line3">
+  </div>
+  <div class="form-group mt-2">
+    <label>City</label>
+    <input formControlName ="city" type="text" class="form-control" id="city" placeholder="city">
+  </div>
+  <div class="form-group mt-2">
+    <label>Zip Code</label>
+    <input formControlName ="zipCode" type="text" class="form-control" id="zipCode" placeholder="zipCode">
+  </div>
+  <div class="form-group mt-2">
+    <label>Country</label>
+    <input formControlName ="country" type="text" class="form-control" id="country" placeholder="country">
+  </div>
+  <button type="submit" class="btn btn-dark">Save Changes</button>
+</form>

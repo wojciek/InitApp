@@ -28,7 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InitApp.AppService\InitApp.AppService.csproj" />
     <ProjectReference Include="..\InitApp.Domain\InitApp.Domain.csproj" />
+    <ProjectReference Include="..\InitApp.Models\InitApp.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,6 +9,7 @@ import { AuthCanLoadGuard } from './guards/auth-can-load.guard';
 import { SamplesModule } from './samples/samples.module';
 import { CoreModule } from './core-module/core-module.module';
 import { SharedModule } from './shared-module/shared-module.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SharedModule } from './shared-module/shared-module.module';
     IdentityModule,
     IdentityRoutingModule,
     SamplesModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,

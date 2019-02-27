@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { SamplesService } from '../samples.service';
+import { Observable } from 'rxjs';
+import { Sample } from '../models/sample';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-samples-list',
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SamplesListComponent implements OnInit {
 
-  constructor() { }
+  Samples$: Observable<Sample[]>;
+
+  constructor(private samplesService: SamplesService) {
+    this.Samples$ = this.samplesService.getSamples(localStorage.getItem('authUser'));
+  }
 
   ngOnInit() {
+
+    this.Samples$.subscribe(x => console.log('Observer got a next value: ' + x),
+    err => console.log('Observer got a next value: ' + err));
   }
 
 }

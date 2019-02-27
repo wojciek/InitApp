@@ -11,16 +11,14 @@ namespace InitApp.Domain.AppUser
     public virtual AppUserAddress Address { get; set; }
     public virtual ICollection<Sample.Sample> Samples { get; set; }
 
-    public AppUser(string username, byte[] passwordHash, byte[] passwordSalt)
+    public AppUser(string username)
     {
-      Merge(username, passwordHash, passwordSalt);
+      Merge(username);
     }
 
-    private void Merge(string username, byte[] passwordHash, byte[] passwordSalt)
+    private void Merge(string username)
     {
       Username = username;
-      PasswordHash = passwordHash;
-      PasswordSalt = passwordSalt;
     }
 
     public void CreateAppUserAddress(string line1, string line2, string line3, string city, string zipCode, string country)
@@ -35,7 +33,7 @@ namespace InitApp.Domain.AppUser
       Address.Line1 = line1;
       Address.Line2 = line2;
       Address.Line3 = line3;
-      Address.City =  city;
+      Address.City = city;
       Address.ZipCode = zipCode;
       Address.Country = country;
     }

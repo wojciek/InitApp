@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,6 +16,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InitApp.API.Controllers
 {
+  [Produces("application/json")]
+  [Route("api")]
   public class UserController : Controller
   {
     private readonly AppSettings _appSettings;
@@ -29,6 +32,13 @@ namespace InitApp.API.Controllers
       _appSettings = appSettings.Value;
       _usersService = userService;
       _mapper = mapper;
+    }
+
+    [HttpGet]
+    [Route("test")]
+    public IEnumerable<string> Get()
+    {
+      return new string[] { "value1", "value2" };
     }
     [AllowAnonymous]
     [HttpPost("authenticate")]
@@ -64,7 +74,7 @@ namespace InitApp.API.Controllers
     [HttpPost("register")]
     public IActionResult Register([FromBody]AppUserDTO userDTO)
     {
-      var user = _mapper.Map<AppUser>(userDTO);
+      AppUser user = new AppUser(userDTO.Username);
       try
       {
         _usersService.Create(user, userDTO.Password);
@@ -77,15 +87,15 @@ namespace InitApp.API.Controllers
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody]AppUserDTO userDto)
+    public IActionResult Update(int id, [FromBody]AppUserDTO userDTO)
     {
-      // map dto to entity and set id
-      var user = _mapper.Map<AppUser>(userDto);
+      AppUser user = new AppUser(userDTO.Username);
+      user.Address = userDTO.Address;
       user.Id = id;
 
       try
       {
-        _usersService.Update(user, userDto.Password);
+        _usersService.Update(user, userDTO.Password);
         return Ok();
       }
       catch (Exception ex)

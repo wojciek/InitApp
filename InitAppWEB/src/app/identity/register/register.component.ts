@@ -11,7 +11,11 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errorInfo;
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router
+    ) { }
 
   ngOnInit() {
     this.registerForm = this.buildRegisterForm();
@@ -20,8 +24,7 @@ export class RegisterComponent implements OnInit {
   buildRegisterForm() {
     return this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required],
-      moneyAmount: ['', [Validators.required, Validators.min(1), Validators.max(10000)]]
+      password: ['', Validators.required]
     });
   }
 

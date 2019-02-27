@@ -8,8 +8,20 @@ namespace InitApp.Models.Helpers
   {
     public AutoMapperProfile()
     {
-      CreateMap<AppUser, AppUserDTO>();
-      CreateMap<AppUserDTO, AppUser>();
+      AllowNullDestinationValues = true;
+
+      CreateMap<AppUser, AppUserDTO>()
+        .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
+        .ForMember(dest => dest.Username, opts => opts.MapFrom(src => src.Username))
+        .ForMember(dest => dest.Address, opts => opts.MapFrom(src => src.Address))
+        .ForMember(dest => dest.Samples, opts => opts.MapFrom(src => src.Samples));
+
+
+      CreateMap<AppUserDTO, AppUser>()
+        .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
+        .ForMember(dest => dest.Username, opts => opts.MapFrom(src => src.Username))
+        .ForMember(dest => dest.Address, opts => opts.MapFrom(src => src.Address))
+        .ForMember(dest => dest.Samples, opts => opts.MapFrom(src => src.Samples));
     }
   }
 }

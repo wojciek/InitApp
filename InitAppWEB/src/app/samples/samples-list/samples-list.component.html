@@ -1,3 +1,28 @@
-<p>
-  samples-list works!
-</p>
+<h3>Samples</h3>
+<ng-container *ngIf="(Samples$ | async) as samples">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Text</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let sample of samples">
+            <tr>
+              <td>{{sample?.name}}</td>
+              <td>{{sample?.description}}</td>
+              <td>{{sample?.text}}</td>
+              <td>{{sample?.category}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+        <hr>
+        <small>
+        Last Update at: 
+        </small>
+        <hr>
+
+     

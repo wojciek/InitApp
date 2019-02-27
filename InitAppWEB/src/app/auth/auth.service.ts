@@ -7,7 +7,11 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  constructor(private layoutService: LayoutService, private http: Http, private router: Router) {}
+  constructor(
+    private layoutService: LayoutService,
+    private http: Http,
+    private router: Router
+    ) {}
 
   loggedInUserName$: Observable<string>;
   loggedInUserId: string;
@@ -26,9 +30,8 @@ login(form: FormGroup) {
     const token = (<any>response).json().token;
     localStorage.setItem('authToken', token);
     this.loggedInUserName$ = (<any>response).json().username;
-    this.loggedInUserId = (<any>response).json().userId;
-    sessionStorage.setItem('authUser', (<any>response).json().userId);
-    sessionStorage.setItem('authUser', (<any>response).json().username);
+    this.loggedInUserId = (<any>response).json().id;
+    localStorage.setItem('authUser', (<any>response).json().id);
     this.isUserLoggedIn = true;
     this.onLoginSubmitSuccess();
   }, err => {
@@ -61,7 +64,7 @@ takeLoggedInUserName(): Observable<string> {
 }
 
 onLoginSubmitSuccess() {
-  this.router.navigate(['']).then(() => this.layoutService.showNavBar());
+  this.router.navigate(['/user']).then(() => this.layoutService.showNavBar());
 }
 
 onLoginSubmitFailure() {
@@ -80,6 +83,7 @@ logOut() {
   this.isUserLoggedIn = false;
   localStorage.removeItem('authToken');
   this.layoutService.hideNavBar();
+  this.router.navigate(['/login']);
 }
 
 isLoggedIn() {
