@@ -7,7 +7,7 @@ Initial App WEB API for .NET Core 2.1 and Angular 2+
 
 ## Login Page
 
-![alt text](https://github.com/wojciek/InitApp/tree/master/Images/loginPage.jpg)
+![alt text](https://github.com/wojciek/InitApp/blob/master/Images/loginPage.jpg)
 
 
 ## Main Page
