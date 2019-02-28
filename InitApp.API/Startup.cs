@@ -94,7 +94,7 @@ namespace InitApp.API
       services.AddTransient<IUnitOfWork, UnitOfWork>();
       services.AddTransient<IAppUserRepository, AppUserRepository>();
       services.AddTransient<IAppUserService, AppUserService>();
-      services.AddTransient<ISamplesQuery, SamplesQuery>();
+      services.AddTransient<ISampleQuery, SampleQuery>();
       services.AddTransient<UsersServiceUseCase, UsersServiceUseCase>();
       services.AddTransient<GetAppUserSamplesUseCase, GetAppUserSamplesUseCase>();
       services.AddTransient<GetSampleUseCase, GetSampleUseCase>();

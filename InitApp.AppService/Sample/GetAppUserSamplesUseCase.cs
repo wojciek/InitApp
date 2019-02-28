@@ -8,21 +8,21 @@ namespace InitApp.AppService.Sample
 {
   public class GetAppUserSamplesUseCase : IQueryHandler<AppUserIdQueryParameter, List<SampleDTO>>
   {
-    private readonly ISamplesQuery _samplesQuery;
+    private readonly ISampleQuery _sampleQuery;
     private readonly IAppUserRepository _appUserRepository;
-    public GetAppUserSamplesUseCase(ISamplesQuery samplesQuery, IAppUserRepository appUserRepository)
+    public GetAppUserSamplesUseCase(ISampleQuery samplesQuery, IAppUserRepository appUserRepository)
     {
       Ensure.That(samplesQuery, nameof(samplesQuery)).IsNotNull();
       Ensure.That(appUserRepository, nameof(appUserRepository)).IsNotNull();
 
-      _samplesQuery = samplesQuery;
+      _sampleQuery = samplesQuery;
       _appUserRepository = appUserRepository;
     }
     public List<SampleDTO> Handle(AppUserIdQueryParameter queryCriteria)
     {
       Ensure.That(queryCriteria, nameof(queryCriteria)).IsNotNull();
       _appUserRepository.Exist(queryCriteria.AppUserIdQuery);
-      return _samplesQuery.GetSamples(queryCriteria);
+      return _sampleQuery.GetSamples(queryCriteria);
     }
   }
 }
