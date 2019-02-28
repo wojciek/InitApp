@@ -5,3 +5,11 @@ Initial App WEB API for .NET Core 2.1 and Angular 2+
 
 ### Editable User Data and Editable Samples List
 
+## Login Page
+
+![alt text](https://github.com/wojciek/InitApp/pics/master/subfolders.../filename.jpg)
+
+
+## Main Page
+
+![alt text](https://github.com/wojciek/InitApp/pics/master/subfolders.../filename.jpg)
