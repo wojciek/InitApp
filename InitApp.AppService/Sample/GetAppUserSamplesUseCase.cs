@@ -22,7 +22,7 @@ namespace InitApp.AppService.Sample
     {
       Ensure.That(queryCriteria, nameof(queryCriteria)).IsNotNull();
       _appUserRepository.Exist(queryCriteria.AppUserIdQuery);
-      return _sampleQuery.GetSamples(queryCriteria);
+      return _sampleQuery.GetSamples(queryCriteria.AppUserIdQuery);
     }
   }
 }

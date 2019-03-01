@@ -15,11 +15,11 @@ namespace InitApp.Infrastructure.Query
       Ensure.That(context, nameof(context)).IsNotNull();
       _context = context;
     }
-    public List<SampleDTO> GetSamples(AppUserIdQueryParameter queryCriteria)
+    public List<SampleDTO> GetSamples(int userId)
     {
       try
       {
-        return _context.Samples.Where(s => s.AppUser.Id == queryCriteria.AppUserIdQuery).Select(sample => new SampleDTO()
+        return _context.Samples.Where(s => s.AppUser.Id == userId).Select(sample => new SampleDTO()
         {
           Id = sample.Id,
           Name = sample.Name,
@@ -35,7 +35,7 @@ namespace InitApp.Infrastructure.Query
 
     }
 
-    public SampleDTO GetSample(SampleQueryParameter queryCriteria)
+    public SampleDTO GetSample(int sampleId)
     {
       try
       {
@@ -46,7 +46,7 @@ namespace InitApp.Infrastructure.Query
           Text = sample.Text,
           Description = sample.Description,
           Category = sample.Category
-        }).FirstOrDefault(x => x.Id == queryCriteria.SampleId);
+        }).FirstOrDefault(x => x.Id == sampleId);
       }
       catch (Exception ex)
       {
@@ -55,10 +55,10 @@ namespace InitApp.Infrastructure.Query
     }
 
 
-    public bool CheckIfSampleExist(SampleQueryParameter queryCriteria)
+    public bool CheckIfSampleExist(int sampleId)
     {
 
-      if (_context.Samples.Any(x => x.Id == queryCriteria.SampleId))
+      if (_context.Samples.Any(x => x.Id == sampleId))
       {
         return true;
       }
@@ -66,4 +66,4 @@ namespace InitApp.Infrastructure.Query
     }
   }
 }
-}
+

@@ -3,8 +3,7 @@
   public interface ISampleRepository
   {
     void AddSample(Sample sample);
-    Sample GetSample(string sampleName);
-    void DeleteSample(Sample walletCurrency);
-    bool IsAnySample(string sampleName);
+    void DeleteSample(Sample sample);
+    Sample Find(int sampleId);
   }
 }

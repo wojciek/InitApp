@@ -5,8 +5,8 @@ namespace InitApp.AppService.Sample
 {
   public interface ISampleQuery
   {
-    List<SampleDTO> GetSamples(AppUserIdQueryParameter queryCriteria);
-    SampleDTO GetSample(SampleQueryParameter queryCriteria);
-    bool CheckIfSampleExist(SampleQueryParameter queryCriteria);
+    List<SampleDTO> GetSamples(int userId);
+    SampleDTO GetSample(int sampleId);
+    bool CheckIfSampleExist(int sampleId);
   }
 }

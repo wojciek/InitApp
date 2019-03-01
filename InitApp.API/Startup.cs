@@ -37,11 +37,11 @@ namespace InitApp.API
     {
       services.AddAutoMapper();
 
-      var appSettingsSection = Configuration.GetSection("AppSettings");
+      IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
       services.Configure<AppSettings>(appSettingsSection);
 
-      var appSettings = appSettingsSection.Get<AppSettings>();
-      var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+      AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+      byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
       services.AddAuthentication(x =>
         {
           x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -65,7 +65,9 @@ namespace InitApp.API
       services.AddDbContext<InitAppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
-      RegisterDependencies(services);
+      RegisterPatternsDependencies(services);
+      RegisterSampleDependencies(services);
+      RegisterAppUserDependencies(services);
     }
 
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -89,19 +91,29 @@ namespace InitApp.API
       app.UseMvc();
     }
 
-    public static void RegisterDependencies(IServiceCollection services)
+    public static void RegisterPatternsDependencies(IServiceCollection services) // patterns
     {
       services.AddTransient<IUnitOfWork, UnitOfWork>();
-      services.AddTransient<IAppUserRepository, AppUserRepository>();
-      services.AddTransient<IAppUserService, AppUserService>();
-      services.AddTransient<ISampleQuery, SampleQuery>();
-      services.AddTransient<UsersServiceUseCase, UsersServiceUseCase>();
-      services.AddTransient<GetAppUserSamplesUseCase, GetAppUserSamplesUseCase>();
-      services.AddTransient<GetSampleUseCase, GetSampleUseCase>();
+    }
 
-      //services.AddTransient<ISomeRepo, SomeRepo>();
+    public static void RegisterSampleDependencies(IServiceCollection sampleServices) // sample
+    {
+      sampleServices.AddTransient<ISampleQuery, SampleQuery>();
+      sampleServices.AddTransient<GetAppUserSamplesUseCase, GetAppUserSamplesUseCase>();
+      sampleServices.AddTransient<GetSampleUseCase, GetSampleUseCase>();
+      sampleServices.AddTransient<AddSampleUseCase, AddSampleUseCase>();
+      sampleServices.AddTransient<UpdateSampleUseCase, UpdateSampleUseCase>();
+      sampleServices.AddTransient<DeleteSampleUseCase, DeleteSampleUseCase>();
+    }
+
+    public static void RegisterAppUserDependencies(IServiceCollection appUserServices) // appUser
+    {
+      appUserServices.AddTransient<IAppUserRepository, AppUserRepository>();
+      appUserServices.AddTransient<IAppUserService, AppUserService>();
+      appUserServices.AddTransient<UsersServiceUseCase, UsersServiceUseCase>();
     }
   }
+}
 
 
 }

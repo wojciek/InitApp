@@ -16,26 +16,40 @@ namespace InitApp.Infrastructure.Domain
     }
     public void AddSample(Sample sample)
     {
-      throw new NotImplementedException();
-    }
-
-    public Sample GetSample(string sampleName)
-    {
-      throw new NotImplementedException();
-    }
-
-    public void DeleteSample(Sample walletCurrency)
-    {
-      throw new NotImplementedException();
-    }
-
-    public bool IsAnySample(string sampleName)
-    {
-      if (_context.Samples.Any(x => x.Name == sampleName))
+      try
       {
-        return true;
+        _context.Samples.Add(sample);
       }
-      throw new Exception("User not found!!!");
+      catch (Exception ex)
+      {
+        throw new Exception(ex.Message);
+      }
+    }
+
+    public void DeleteSample(Sample sample)
+    {
+      try
+      {
+        _context.Samples.Remove(sample);
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(ex.Message);
+      }
+    }
+
+    public Sample Find(int sampleId)
+    {
+      try
+      {
+        Sample sample = _context.Samples.FirstOrDefault(x => x.Id == sampleId);
+        return sample;
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(ex.Message);
+      }
+
     }
   }
 }

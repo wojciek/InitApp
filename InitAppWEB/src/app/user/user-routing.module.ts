@@ -11,10 +11,16 @@ const userRoutes: Route[] = [
         component: <any>UserComponent,
         children: [
             {
-                path: '',
-                component: <any>UserDashboardComponent,
-                canActivate: [AuthGuard],
-                canDeactivate: [FormCanDeactivateGuard]
+              path: 'dashboard',
+              component: <any>UserDashboardComponent,
+              canActivate: [AuthGuard],
+              canDeactivate: [FormCanDeactivateGuard]
+            },
+            {
+              path: 'edit',
+              component: <any>UserDashboardComponent,
+              canActivate: [AuthGuard],
+              canDeactivate: [FormCanDeactivateGuard]
             }
         ]
     }
@@ -30,3 +36,4 @@ const userRoutes: Route[] = [
 })
 export class UserRoutingModule {
 }
+

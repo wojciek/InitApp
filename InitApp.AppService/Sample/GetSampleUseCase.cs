@@ -15,8 +15,8 @@ namespace InitApp.AppService.Sample
     }
     public SampleDTO Handle(SampleQueryParameter queryCriteria)
     {
-      _samplesQuery.CheckIfSampleExist(queryCriteria);
-      return _samplesQuery.GetSample(queryCriteria);
+      _samplesQuery.CheckIfSampleExist(queryCriteria.SampleId);
+      return _samplesQuery.GetSample(queryCriteria.SampleId);
     }
   }
 }

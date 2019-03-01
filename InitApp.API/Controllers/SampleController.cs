@@ -40,7 +40,21 @@ namespace InitApp.API.Controllers
 
     [HttpPost]
     [Route("sample/{id}")]
-    public void AddNewSample(int id, SampleDTO sample)
+    public void AddSample(int appUserId, SampleDTO sample)
+    {
+      
+    }
+
+    [HttpPut]
+    [Route("sample")]
+    public void UpdateSample(int id, SampleDTO sample)
+    {
+
+    }
+
+    [HttpDelete]
+    [Route("sample")]
+    public void DeleteSample(int id, SampleDTO sample)
     {
 
     }
