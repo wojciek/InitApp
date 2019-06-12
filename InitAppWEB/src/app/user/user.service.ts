@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AppUserAddress } from '../identity/models/address';
 import { Observable } from 'rxjs';
 import { Http, Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { UpdateAppUserAddressCommand } from './models/updateAppUserAddressCommand';
+import { ChangeAppUserPasswordCommand } from './models/changeAppUserPasswordCommand';
+import { AppUserAddressDTO } from './models/appUserAddressDTO';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +14,17 @@ import { map } from 'rxjs/operators';
 export class UserService {
 
   private apiDataUrl = 'http://localhost:5001/api/';
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  getUserAddress(): Observable<AppUserAddress> {
-    return this
-    .http
-    .get(
-      this.apiDataUrl + 'currencies'
-      , { headers: new Headers({'Authorization': 'Bearer' + localStorage.getItem('authToken')})}).pipe(map((result) =>
-      result.json()
-    ));
+  updateUserAddress(data: UpdateAppUserAddressCommand) {
+    return this.http.put(this.apiDataUrl + localStorage.getItem('authUser'), data);
+  }
+
+  changeUserPassword(data: ChangeAppUserPasswordCommand) {
+    return this.http.put(this.apiDataUrl + localStorage.getItem('authUser'), data);
+  }
+
+  getUserAddress(): Observable<AppUserAddressDTO> {
+    return this.http.get<AppUserAddressDTO>(this.apiDataUrl + localStorage.getItem('authUser'));
   }
 }

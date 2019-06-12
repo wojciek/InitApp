@@ -4,23 +4,27 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { AuthGuard } from '../guards/auth.guard';
 import { FormCanDeactivateGuard } from '../guards/form-can-deactivate.guard';
 import { NgModule } from '@angular/core';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserResolveService } from './user-resolve.service';
 
 const userRoutes: Route[] = [
     {
         path: '',
-        component: <any>UserComponent,
+        component: UserComponent,
         children: [
             {
-              path: 'dashboard',
-              component: <any>UserDashboardComponent,
+              path: '',
+              component: UserDashboardComponent,
               canActivate: [AuthGuard],
-              canDeactivate: [FormCanDeactivateGuard]
+              canDeactivate: [FormCanDeactivateGuard],
+              resolve: { user: UserResolveService}
             },
             {
               path: 'edit',
-              component: <any>UserDashboardComponent,
+              component: UserEditComponent,
               canActivate: [AuthGuard],
-              canDeactivate: [FormCanDeactivateGuard]
+              canDeactivate: [FormCanDeactivateGuard],
+              resolve: { user: UserResolveService}
             }
         ]
     }

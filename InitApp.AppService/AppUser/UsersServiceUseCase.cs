@@ -1,6 +1,7 @@
 ﻿using EnsureThat;
 using InitApp.Domain.AppUser;
 using InitApp.Domain.UnitOfWork;
+using InitApp.Models.Commands;
 using InitApp.Models.Queries;
 
 namespace InitApp.AppService.AppUser
@@ -21,7 +22,7 @@ namespace InitApp.AppService.AppUser
       _unitOfWork = unitOfWork;
     }
 
-    public Domain.AppUser.AppUser Authenticate(AppUserAuthenticateParameters parameters)
+    public AuthenticatedAppUserHelper Authenticate(AppUserAuthenticateParameters parameters)
     {
       return _appUserService.Authenticate(parameters.Username, parameters.Password);
     }
@@ -38,15 +39,42 @@ namespace InitApp.AppService.AppUser
       _unitOfWork.Save();
     }
 
-    public void Update(Domain.AppUser.AppUser user, string password)
+    public void UpdatePassword(int userId, string password)
     {
-      _appUserService.Update(user, password);
+      _appUserService.UpdatePassword(userId, password);
       _unitOfWork.Save();
     }
-
-    public Domain.AppUser.AppUser GetById(int id)
+    public Domain.AppUser.AppUser GetById(int userId)
     {
-      return _appUserService.GetById(id);
+      return _appUserService.GetById(userId);
+    }
+
+    public AppUserAddressDTO GetAppUserAddressByAppUserId(int userId)
+    {
+      var userAddress = _appUserService.GetById(userId).Address;
+      return new AppUserAddressDTO()
+      {
+        Line1 = userAddress.Line1,
+        Line2 = userAddress.Line2,
+        Line3 = userAddress.Line3,
+        City = userAddress.City,
+        Country = userAddress.Country,
+        ZipCode = userAddress.ZipCode
+      };
+    }
+
+
+    public void UpdateData(int userId, UpdateAppUserAddressCommand command)
+    {
+      _appUserService.UpdateData(
+        userId,
+        command.Line1,
+        command.Line2,
+        command.Line3,
+        command.City,
+        command.ZipCode,
+        command.Country);
+      _unitOfWork.Save();
     }
 
 

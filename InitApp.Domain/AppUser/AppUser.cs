@@ -11,16 +11,6 @@ namespace InitApp.Domain.AppUser
     public virtual AppUserAddress Address { get; set; }
     public virtual ICollection<Sample.Sample> Samples { get; set; }
 
-    public AppUser(string username)
-    {
-      Merge(username);
-    }
-
-    private void Merge(string username)
-    {
-      Username = username;
-    }
-
     public void CreateAppUserAddress(string line1, string line2, string line3, string city, string zipCode, string country)
     {
       AppUserAddress newAppUserAddress = new AppUserAddress(line1, line2, line3, city, zipCode, country);

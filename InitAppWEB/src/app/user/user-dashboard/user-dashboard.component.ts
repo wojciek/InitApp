@@ -1,41 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CanComponentDeactivate } from '../../guards/form-can-deactivate.guard';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../user.service';
+import { AppUserAddressDTO } from '../models/appUserAddressDTO';
 
 @Component({
   selector: 'app-user-dashboard',
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.less']
 })
-export class UserDashboardComponent implements OnInit, CanComponentDeactivate {
+export class UserDashboardComponent implements OnInit {
 
-  userDashboardForm: FormGroup;
-  constructor(private router: Router, private formBuilder: FormBuilder) { }
+  appUserData: AppUserAddressDTO;
+  appUsername: string;
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.userDashboardForm = this.buildUserDashboardForm();
+    this.appUserData = this.route.snapshot.data['user'];
+    this.appUsername = localStorage.getItem('authUser');
   }
-
-  buildUserDashboardForm() {
-      return this.formBuilder.group({
-        username: ['', Validators.required],
-        password: ['', Validators.required],
-        line1: [''],
-        line2: [''],
-        line3: [''],
-        city: [''],
-        zipCode: [''],
-        country: [''],
-      });
-  }
-  canDeactivate() {
-      if (!this.userDashboardForm.dirty) {
-        return true;
-      }
-      return window.confirm('Discard changes?');
-  }
-  userWallet() {
-    this.router.navigate(['']);
-  }
+changeUserAddress() {
+  this.router.navigate(['edit']);
+}
 }

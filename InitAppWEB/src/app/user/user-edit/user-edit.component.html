@@ -1,0 +1,34 @@
+<h3>User Edit Address</h3>
+<h5>UserData</h5> 
+<hr>
+<app-user-change-password></app-user-change-password>
+<hr>
+  <form [formGroup]="updateUserAddressForm">
+    <div class="form-group mt-2">
+      <div class="form-group mt-2">
+        <label>Address Line 1</label>
+        <input formControlName ="line1" type="text" class="form-control" id="line1" placeholder="line1">
+      </div>
+      <div class="form-group mt-2">
+        <label>Address Line 2</label>
+        <input formControlName ="line2" type="text" class="form-control" id="line2" placeholder="line2">
+      </div>
+      <div class="form-group mt-2">
+        <label>Address Line 3</label>
+        <input formControlName ="line3" type="text" class="form-control" id="line3" placeholder="line3">
+      </div>
+      <div class="form-group mt-2">
+        <label>City</label>
+        <input formControlName ="city" type="text" class="form-control" id="city" placeholder="city">
+      </div>
+      <div class="form-group mt-2">
+        <label>Zip Code</label>
+        <input formControlName ="zipCode" type="text" class="form-control" id="zipCode" placeholder="zipCode">
+      </div>
+      <div class="form-group mt-2">
+        <label>Country</label>
+        <input formControlName ="country" type="text" class="form-control" id="country" placeholder="country">
+      </div>
+    <button [disabled]="updateUserAddressForm.invalid" type="submit" (click)="updateUserAddress()" class="btn btn-dark">Save Changes</button>
+    </div>
+  </form>

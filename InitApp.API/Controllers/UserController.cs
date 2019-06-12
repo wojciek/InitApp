@@ -7,6 +7,7 @@ using AutoMapper;
 using EnsureThat;
 using InitApp.AppService.AppUser;
 using InitApp.Domain.AppUser;
+using InitApp.Models.Commands;
 using InitApp.Models.Helpers;
 using InitApp.Models.Queries;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InitApp.API.Controllers
 {
+  [Authorize]
   [Produces("application/json")]
   [Route("api")]
   public class UserController : Controller
@@ -33,7 +35,7 @@ namespace InitApp.API.Controllers
       _usersService = userService;
       _mapper = mapper;
     }
-
+    [AllowAnonymous]
     [HttpGet]
     [Route("test")]
     public IEnumerable<string> Get()
@@ -46,8 +48,8 @@ namespace InitApp.API.Controllers
     {
       if (ModelState.IsValid)
       {
-        var user = _usersService.Authenticate(userAuthenticateModel);
-        if (user == null)
+        var userHelper = _usersService.Authenticate(userAuthenticateModel);
+        if (userHelper == null)
         {
           return Unauthorized();
         }
@@ -59,8 +61,8 @@ namespace InitApp.API.Controllers
 
         return Ok(new
         {
-          Id = user.Id,
-          Username = user.Username,
+          Id = userHelper.Id,
+          Username = userHelper.Username,
           Token = jwtToken,
         });
       }
@@ -74,7 +76,7 @@ namespace InitApp.API.Controllers
     [HttpPost("register")]
     public IActionResult Register([FromBody]AppUserDTO userDTO)
     {
-      AppUser user = new AppUser(userDTO.Username);
+      AppUser user = new AppUser();
       try
       {
         _usersService.Create(user, userDTO.Password);
@@ -86,16 +88,26 @@ namespace InitApp.API.Controllers
       }
     }
 
-    [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody]AppUserDTO userDTO)
+    [HttpPut("password/{id}")]
+    public IActionResult ChangeAppUserPassword(int id, [FromBody]ChangeAppUserPasswordCommand command)
     {
-      AppUser user = new AppUser(userDTO.Username);
-      user.Address = userDTO.Address;
-      user.Id = id;
-
       try
       {
-        _usersService.Update(user, userDTO.Password);
+        _usersService.UpdatePassword(id, command.Password);
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(new { message = ex.Message });
+      }
+    }
+
+    [HttpPut("address/{id}")]
+    public IActionResult UpdateAppUserAddress(int id, [FromBody]UpdateAppUserAddressCommand command)
+    {
+      try
+      {
+        _usersService.UpdateData(id, command);
         return Ok();
       }
       catch (Exception ex)
@@ -118,14 +130,13 @@ namespace InitApp.API.Controllers
       }
     }
 
-    [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    [HttpGet("address/{id}")]
+    public IActionResult ReturnAppUserAddressById(int id)
     {
       try
       {
-        var user = _usersService.GetById(id);
-        var userDto = _mapper.Map<AppUserDTO>(user);
-        return Ok(userDto);
+        var userAddressData = _usersService.GetAppUserAddressByAppUserId(id);
+        return Ok(userAddressData);
       }
       catch (Exception ex)
       {

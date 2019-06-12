@@ -37,37 +37,30 @@ namespace InitApp.Infrastructure.Domain
       _appUserRepository.Add(user);
     }
 
-    public AppUser Authenticate(string username, string password)
+    public AuthenticatedAppUserHelper Authenticate(string username, string password)
     {
       if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
         return null;
-
-      var user = _context.AppUsers.SingleOrDefault(x => x.Username == username);
+      AppUser user = _context.AppUsers.SingleOrDefault(x => x.Username == username);
 
       if (user == null)
         return null;
 
       if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
         return null;
-
-      return user;
+      AuthenticatedAppUserHelper userHelper = new AuthenticatedAppUserHelper();
+      userHelper.Username = user.Username;
+      userHelper.Id = user.Id;
+      return userHelper;
     }
 
-    public void Update(AppUser userParam, string password)
+    public void UpdatePassword(int userId, string password)
     {
-      Ensure.That(userParam, nameof(userParam)).IsNotNull();
-      var user = _appUserRepository.Find(userParam.Id);
+      var user = GetById(userId);
 
       if (user == null)
         throw new Exception("User not found");
 
-      if (userParam.Username != user.Username)
-      {
-        if (_context.AppUsers.Any(x => x.Username == userParam.Username))
-          throw new Exception("Username " + userParam.Username + " is already taken");
-      }
-
-      user.Username = userParam.Username;
 
       if (!string.IsNullOrWhiteSpace(password))
       {
@@ -81,14 +74,27 @@ namespace InitApp.Infrastructure.Domain
       _context.AppUsers.Update(user);
     }
 
+    public void UpdateData(int userId, string line1, string line2, string line3, string city, string zipCode, string country)
+    {
+      var user = _appUserRepository.FindWithAddress(userId);
+
+      if (user == null)
+        throw new Exception("User not found");
+
+      if (user.Address == null)
+      {
+        _appUserRepository.AddUserAddress(userId, new AppUserAddress(line1, line2, line3, city, zipCode, country));
+      }
+      else
+      {
+        _appUserRepository.UpdateUserAddress(userId, new AppUserAddress(line1, line2, line3, city, zipCode, country));
+      }
+
+    }
+
     public void Delete(int id)
     {
       _appUserRepository.Delete(_appUserRepository.Find(id));
-    }
-
-    public AppUser GetById(int id)
-    {
-      throw new NotImplementedException();
     }
 
     public AppUser GetById(int? id)

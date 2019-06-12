@@ -27,8 +27,7 @@ namespace InitApp.AppService.Sample
           command.Name,
           command.Description,
           command.Text,
-          command.Category,
-          _appUserRepository.Find(command.AppUserId)
+          command.Category
           ));
       _unitOfWork.Save();
     }
