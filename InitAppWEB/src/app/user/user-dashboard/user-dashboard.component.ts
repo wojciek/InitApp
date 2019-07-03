@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { AppUserAddressDTO } from '../models/appUserAddressDTO';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -10,13 +12,16 @@ import { AppUserAddressDTO } from '../models/appUserAddressDTO';
 })
 export class UserDashboardComponent implements OnInit {
 
-  appUserData: AppUserAddressDTO;
-  appUsername: string;
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) { }
+  appUserData: Observable<AppUserAddressDTO>;
+  appUsername: Observable<string>
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
     this.appUserData = this.route.snapshot.data['user'];
-    this.appUsername = localStorage.getItem('authUser');
+    
+    if(this.authService.loggedInUserName$){
+      this.appUsername = this.authService.takeLoggedInUserName();
+    }
   }
 changeUserAddress() {
   this.router.navigate(['edit']);

@@ -11,11 +11,11 @@ export class SamplesService {
   private apiDataUrl = 'http://localhost:5006/api/';
   constructor(private http: HttpClient) { }
 
-  getSamples(id: string): Observable<Sample[]> {
-    return this.http.get<Sample[]>(this.apiDataUrl + 'samples/' + id);
+  getSample(id: string): Observable<Sample> {
+    return this.http.get<Sample>(this.apiDataUrl + 'sample/' + id);
   }
-  getSample(): Observable<Sample> {
-    return this.http.get<Sample>(this.apiDataUrl + 'sample');
+  getSamples(): Observable<Sample[]> {
+    return this.http.get<Sample[]>(this.apiDataUrl + 'samples');
   }
 }
 

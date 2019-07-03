@@ -19,100 +19,106 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace InitApp.API
 {
-  public class Startup
-  {
-    public IConfiguration Configuration { get; }
-    public Startup(IHostingEnvironment env)
+    public class Startup
     {
-      var builder = new ConfigurationBuilder()
-        .SetBasePath(env.ContentRootPath)
-        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-        .AddEnvironmentVariables();
-
-      Configuration = builder.Build();
-    }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddAutoMapper();
-
-      IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
-      services.Configure<AppSettings>(appSettingsSection);
-
-      AppSettings appSettings = appSettingsSection.Get<AppSettings>();
-      byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
-      services.AddAuthentication(x =>
+        public IConfiguration Configuration { get; }
+        public Startup(IHostingEnvironment env)
         {
-          x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-          x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(x =>
+            var builder = new ConfigurationBuilder()
+              .SetBasePath(env.ContentRootPath)
+              .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+              .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+              .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
+        }
+
+        public void ConfigureServices(IServiceCollection services)
         {
-          x.RequireHttpsMetadata = false;
-          x.SaveToken = true;
-          x.TokenValidationParameters = new TokenValidationParameters
-          {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false
-          };
-        });
-
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-      services.AddSingleton(Configuration);
-      services.AddDbContext<InitAppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
-      RegisterPatternsDependencies(services);
-      RegisterSampleDependencies(services);
-      RegisterAppUserDependencies(services);
+            IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+              {
+                  x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                  x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+              })
+              .AddJwtBearer(x =>
+              {
+                  x.RequireHttpsMetadata = false;
+                  x.SaveToken = true;
+                  x.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuerSigningKey = true,
+                      IssuerSigningKey = new SymmetricSecurityKey(key),
+                      ValidateIssuer = false,
+                      ValidateAudience = false
+                  };
+              });
+
+            services.AddAutoMapper();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvcCore().AddJsonFormatters();
+            services.AddSingleton(Configuration);
+            services.AddDbContext<InitAppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+
+            RegisterPatternsDependencies(services);
+            RegisterSampleDependencies(services);
+            RegisterAppUserDependencies(services);
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseCors(b => b.WithOrigins(Configuration["AppUrls:ClientUrl"])
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials());
+            app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseMvc();
+
+        }
+
+
+        public static void RegisterPatternsDependencies(IServiceCollection services) // patterns
+        {
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+        }
+
+        public static void RegisterSampleDependencies(IServiceCollection sampleServices) // sample
+        {
+            sampleServices.AddTransient<ISampleQuery, SampleQuery>();
+            sampleServices.AddTransient<GetAppUserSamplesUseCase, GetAppUserSamplesUseCase>();
+            sampleServices.AddTransient<GetSampleUseCase, GetSampleUseCase>();
+            sampleServices.AddTransient<AddSampleUseCase, AddSampleUseCase>();
+            sampleServices.AddTransient<UpdateSampleUseCase, UpdateSampleUseCase>();
+            sampleServices.AddTransient<DeleteSampleUseCase, DeleteSampleUseCase>();
+        }
+
+        public static void RegisterAppUserDependencies(IServiceCollection appUserServices) // appUser
+        {
+            appUserServices.AddTransient<IAppUserRepository, AppUserRepository>();
+            appUserServices.AddTransient<IAppUserService, AppUserService>();
+            appUserServices.AddTransient<UsersServiceUseCase, UsersServiceUseCase>();
+        }
     }
-
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-    {
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-      }
-      else
-      {
-        app.UseHsts();
-      }
-
-      app.UseHttpsRedirection();
-      app.UseCors(b => b.WithOrigins(Configuration["AppUrls:ClientUrl"])
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials());
-      app.UseStaticFiles();
-      app.UseAuthentication();
-      app.UseMvc();
-    }
-
-    public static void RegisterPatternsDependencies(IServiceCollection services) // patterns
-    {
-      services.AddTransient<IUnitOfWork, UnitOfWork>();
-    }
-
-    public static void RegisterSampleDependencies(IServiceCollection sampleServices) // sample
-    {
-      sampleServices.AddTransient<ISampleQuery, SampleQuery>();
-      sampleServices.AddTransient<GetAppUserSamplesUseCase, GetAppUserSamplesUseCase>();
-      sampleServices.AddTransient<GetSampleUseCase, GetSampleUseCase>();
-      sampleServices.AddTransient<AddSampleUseCase, AddSampleUseCase>();
-      sampleServices.AddTransient<UpdateSampleUseCase, UpdateSampleUseCase>();
-      sampleServices.AddTransient<DeleteSampleUseCase, DeleteSampleUseCase>();
-    }
-
-    public static void RegisterAppUserDependencies(IServiceCollection appUserServices) // appUser
-    {
-      appUserServices.AddTransient<IAppUserRepository, AppUserRepository>();
-      appUserServices.AddTransient<IAppUserService, AppUserService>();
-      appUserServices.AddTransient<UsersServiceUseCase, UsersServiceUseCase>();
-    }
-  }
 }
 
 

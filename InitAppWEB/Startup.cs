@@ -22,6 +22,7 @@ namespace InitAppWEB
       app.UseDefaultFiles();
       app.UseStaticFiles();
       app.UseHttpsRedirection();
+
     }
   }
 }

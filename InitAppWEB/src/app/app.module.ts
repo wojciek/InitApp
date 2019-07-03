@@ -10,9 +10,13 @@ import { SamplesModule } from './samples/samples.module';
 import { CoreModule } from './core-module/core-module.module';
 import { SharedModule } from './shared-module/shared-module.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PageNotFoundComponent } from './shared-module/page-not-found/page-not-found.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor.service';
+import { AuthGuard } from './guards/auth.guard';
+import { LayoutService } from './shared-module/services/layout.service';
+import { SamplesRoutingModule } from './samples/samples-routing.module';
+import { UserModule } from './user/user.module';
+import { UserRoutingModule } from './user/user-routing.module';
 
 @NgModule({
   declarations: [
@@ -25,13 +29,17 @@ import { AuthInterceptor } from './auth/auth.interceptor.service';
     IdentityModule,
     IdentityRoutingModule,
     SamplesModule,
+    SamplesRoutingModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,
     AuthCanLoadGuard,
+    AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    LayoutService
   ],
   bootstrap: [AppComponent]
 })

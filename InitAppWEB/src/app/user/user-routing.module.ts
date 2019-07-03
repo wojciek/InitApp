@@ -16,7 +16,6 @@ const userRoutes: Route[] = [
               path: '',
               component: UserDashboardComponent,
               canActivate: [AuthGuard],
-              canDeactivate: [FormCanDeactivateGuard],
               resolve: { user: UserResolveService}
             },
             {

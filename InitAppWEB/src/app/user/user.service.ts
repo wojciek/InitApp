@@ -13,18 +13,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
 
-  private apiDataUrl = 'http://localhost:5001/api/';
+  private apiDataUrl = 'http://localhost:5006/api/';
   constructor(private http: HttpClient) { }
 
   updateUserAddress(data: UpdateAppUserAddressCommand) {
     return this.http.put(this.apiDataUrl + localStorage.getItem('authUser'), data);
   }
 
-  changeUserPassword(data: ChangeAppUserPasswordCommand) {
-    return this.http.put(this.apiDataUrl + localStorage.getItem('authUser'), data);
+  changeUserPassword(password: ChangeAppUserPasswordCommand) {
+    return this.http.put<ChangeAppUserPasswordCommand>(this.apiDataUrl + 'password/' + localStorage.getItem('authUser'), password)
   }
 
   getUserAddress(): Observable<AppUserAddressDTO> {
-    return this.http.get<AppUserAddressDTO>(this.apiDataUrl + localStorage.getItem('authUser'));
+    return this.http.get<AppUserAddressDTO>(this.apiDataUrl + 'address/' + localStorage.getItem('authUser'));
   }
 }

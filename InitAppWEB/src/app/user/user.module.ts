@@ -28,12 +28,12 @@ import { AuthInterceptor } from '../auth/auth.interceptor.service';
   ],
   exports: [
     UserDashboardComponent,
-    UserEditComponent
+    UserEditComponent,
+    UserComponent
   ],
   providers: [
     UserService,
-    UserResolveService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    UserResolveService
   ]
 })
 export class UserModule { }

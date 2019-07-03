@@ -8,6 +8,8 @@ import { HttpModule } from '@angular/http';
 import { SampleEditComponent } from './sample-edit/sample-edit.component';
 import { SampleAddComponent } from './sample-add/sample-add.component';
 import { RouterModule } from '@angular/router';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../auth/auth.interceptor.service';
 
 @NgModule({
   declarations: [

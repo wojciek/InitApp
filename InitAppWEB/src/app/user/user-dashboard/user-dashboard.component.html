@@ -1,37 +1,38 @@
 <h3>User Dashboard</h3>
-<h5>UserData</h5> 
 <hr>
-  <div class="form-group mt-2">
-    <label>Username</label>
-    <p>{{appUsername}}</p>
+<div class="form-group row">
+  <label for="username" class="col-sm-2 col-form-label">Username</label>
+  <div class="col-sm-10">
+    <input type="text" readonly class="form-control-plaintext" id="username" [value]="appUsername">
   </div>
-  <div class="form-group mt-2">
-    <label>Password</label>
+</div>
+<div class="form-group row">
+  <label for="password" class="col-sm-2 col-form-label">Password</label>
     <app-user-change-password></app-user-change-password>
-  </div>
+</div>
   <hr>
   <div class="form-group mt-2">
-    <label>Address Line 1</label>
-    <p>{{appUserData.Line1}}</p>
-  </div>
-  <div class="form-group mt-2">
-    <label>Address Line 2</label>
-    <p>{{appUserData.Line2}}</p>
-  </div>
-  <div class="form-group mt-2">
-    <label>Address Line 3</label>
-    <p>{{appUserData.Line3}}</p>
+    <label>Address</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="appUserData.Line1 + appUserData.Line2 + appUserData.Line3">
+    </div>
   </div>
   <div class="form-group mt-2">
     <label>City</label>
-    <p>{{appUserData.City}}</p>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="appUserData.City">
+    </div>
   </div>
   <div class="form-group mt-2">
     <label>Zip Code</label>
-    <p>{{appUserData.ZipCode}}</p>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="appUserData.ZipCode">
+    </div>
   </div>
   <div class="form-group mt-2">
     <label>Country</label>
-    <p>{{appUserData.Country}}</p>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" [value]="appUserData.Country">
+    </div>
   </div>
   <button (click)="changeUserAddress()" class="btn btn-dark">Change Address</button>

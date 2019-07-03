@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { HttpHandler, HttpEvent } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-change-password',
@@ -10,6 +11,8 @@ import { UserService } from '../user.service';
 })
 export class UserChangePasswordComponent implements OnInit {
   changeUserPasswordForm: FormGroup;
+
+  testBool: boolean;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit() {
@@ -18,11 +21,15 @@ export class UserChangePasswordComponent implements OnInit {
 
   buildUserPasswordForm(): FormGroup {
     return this.formBuilder.group({
-      password: ['']
+      Password: ['', Validators.required]
     });
   }
   changeUserPassword() {
-    this.userService.changeUserPassword(this.changeUserPasswordForm.value.password).subscribe(() =>
-    this.router.navigate(['user']));
+    this.userService.changeUserPassword(this.changeUserPasswordForm.value).subscribe((successResponse) =>
+    console.log('udało się'+ successResponse),
+    (errorResponse)=> console.log('dupa nie udało sie'),  
+    ()=> console.log('to sie zawsze zrobi na koniec')
+    )
+
   }
 }

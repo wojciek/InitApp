@@ -1,50 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["user-user-module"],{
 
-/***/ "./src/app/guards/auth.guard.ts":
-/*!**************************************!*\
-  !*** ./src/app/guards/auth.guard.ts ***!
-  \**************************************/
-/*! exports provided: AuthGuard */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _auth_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../auth/auth.service */ "./src/app/auth/auth.service.ts");
-
-
-
-
-var AuthGuard = /** @class */ (function () {
-    function AuthGuard(authService, router) {
-        this.authService = authService;
-        this.router = router;
-    }
-    AuthGuard.prototype.canActivate = function (next, state) {
-        if (this.authService.isLoggedIn()) {
-            return true;
-        }
-        else {
-            this.router.navigate(['/login']);
-            return false;
-        }
-    };
-    AuthGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_auth_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
-    ], AuthGuard);
-    return AuthGuard;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/guards/form-can-deactivate.guard.ts":
 /*!*****************************************************!*\
   !*** ./src/app/guards/form-can-deactivate.guard.ts ***!
@@ -66,7 +21,9 @@ var FormCanDeactivateGuard = /** @class */ (function () {
         return component.canDeactivate ? component.canDeactivate() : true;
     };
     FormCanDeactivateGuard = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root',
+        })
     ], FormCanDeactivateGuard);
     return FormCanDeactivateGuard;
 }());
@@ -82,7 +39,7 @@ var FormCanDeactivateGuard = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"changeUserPasswordForm\">\n  <div class=\"form-group mt-2\">\n    <label>Password</label>\n    <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n      Change Password\n    </button>\n    <!-- Modal -->\n    <div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n      <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n          <div class=\"modal-header\">\n            <h5 class=\"modal-title\" id=\"exampleModalLabel\">Change Password</h5>\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n              <span aria-hidden=\"true\">&times;</span>\n            </button>\n          </div>\n          <div class=\"modal-body\">\n              <label>Password</label>\n              <input formControlName =\"password\" type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"password\">\n            </div>\n          </div>\n          <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cancel</button>\n            <button type=\"button\" [disabled]=\"changeUserPasswordForm.invalid\" type=\"submit\" (click)=\"changeUserPassword()\" class=\"btn btn-success\">Save changes</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </form>"
+module.exports = "<form [formGroup]=\"changeUserPasswordForm\">\n<!-- Button trigger modal -->\n<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Change password\n</button>\n\n<!-- Modal -->\n<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Change your password</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n          <div class=\"form-group\">\n              <label for=\"dateOfBirth\">Set new password</label>\n              <div class=\"input-group\">\n                <input formControlName =\"Password\" type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"password\">\n              </div>\n            </div>\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"submit\" [disabled]=\"changeUserPasswordForm.invalid\" class=\"btn btn-primary\" (click)=\"changeUserPassword()\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div>\n\n</form>"
 
 /***/ }),
 
@@ -93,7 +50,7 @@ module.exports = "<form [formGroup]=\"changeUserPasswordForm\">\n  <div class=\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1c2VyL3VzZXItY2hhbmdlLXBhc3N3b3JkL3VzZXItY2hhbmdlLXBhc3N3b3JkLmNvbXBvbmVudC5sZXNzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3VzZXIvdXNlci1jaGFuZ2UtcGFzc3dvcmQvdXNlci1jaGFuZ2UtcGFzc3dvcmQuY29tcG9uZW50Lmxlc3MifQ== */"
 
 /***/ }),
 
@@ -128,14 +85,13 @@ var UserChangePasswordComponent = /** @class */ (function () {
     };
     UserChangePasswordComponent.prototype.buildUserPasswordForm = function () {
         return this.formBuilder.group({
-            password: ['']
+            Password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
         });
     };
     UserChangePasswordComponent.prototype.changeUserPassword = function () {
-        var _this = this;
-        this.userService.changeUserPassword(this.changeUserPasswordForm.value.password).subscribe(function () {
-            return _this.router.navigate(['user']);
-        });
+        this.userService.changeUserPassword(this.changeUserPasswordForm.value).subscribe(function (successResponse) {
+            return console.log('udało się' + successResponse);
+        }, function (errorResponse) { return console.log('dupa nie udało sie'); }, function () { return console.log('to sie zawsze zrobi na koniec'); });
     };
     UserChangePasswordComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -159,7 +115,7 @@ var UserChangePasswordComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3>User Dashboard</h3>\r\n<h5>UserData</h5> \r\n<hr>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Username</label>\r\n    <p>{{appUsername}}</p>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Password</label>\r\n    <app-user-change-password></app-user-change-password>\r\n  </div>\r\n  <hr>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Address Line 1</label>\r\n    <p>{{appUserData.Line1}}</p>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Address Line 2</label>\r\n    <p>{{appUserData.Line2}}</p>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Address Line 3</label>\r\n    <p>{{appUserData.Line3}}</p>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>City</label>\r\n    <p>{{appUserData.City}}</p>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Zip Code</label>\r\n    <p>{{appUserData.ZipCode}}</p>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Country</label>\r\n    <p>{{appUserData.Country}}</p>\r\n  </div>\r\n  <button (click)=\"changeUserAddress()\" class=\"btn btn-dark\">Change Address</button>\r\n"
+module.exports = "<h3>User Dashboard</h3>\r\n<hr>\r\n<div class=\"form-group row\">\r\n  <label for=\"username\" class=\"col-sm-2 col-form-label\">Username</label>\r\n  <div class=\"col-sm-10\">\r\n    <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"username\" [value]=\"appUsername\">\r\n  </div>\r\n</div>\r\n<div class=\"form-group row\">\r\n  <label for=\"password\" class=\"col-sm-2 col-form-label\">Password</label>\r\n    <app-user-change-password></app-user-change-password>\r\n</div>\r\n  <hr>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Address</label>\r\n    <div class=\"col-sm-10\">\r\n      <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"staticEmail\" [value]=\"appUserData.Line1 + appUserData.Line2 + appUserData.Line3\">\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>City</label>\r\n    <div class=\"col-sm-10\">\r\n      <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"staticEmail\" [value]=\"appUserData.City\">\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Zip Code</label>\r\n    <div class=\"col-sm-10\">\r\n      <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"staticEmail\" [value]=\"appUserData.ZipCode\">\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group mt-2\">\r\n    <label>Country</label>\r\n    <div class=\"col-sm-10\">\r\n      <input type=\"text\" readonly class=\"form-control-plaintext\" id=\"staticEmail\" [value]=\"appUserData.Country\">\r\n    </div>\r\n  </div>\r\n  <button (click)=\"changeUserAddress()\" class=\"btn btn-dark\">Change Address</button>"
 
 /***/ }),
 
@@ -170,7 +126,7 @@ module.exports = "<h3>User Dashboard</h3>\r\n<h5>UserData</h5> \r\n<hr>\r\n  <di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1c2VyL3VzZXItZGFzaGJvYXJkL3VzZXItZGFzaGJvYXJkLmNvbXBvbmVudC5sZXNzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3VzZXIvdXNlci1kYXNoYm9hcmQvdXNlci1kYXNoYm9hcmQuY29tcG9uZW50Lmxlc3MifQ== */"
 
 /***/ }),
 
@@ -188,19 +144,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../user.service */ "./src/app/user/user.service.ts");
+/* harmony import */ var src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/auth/auth.service */ "./src/app/auth/auth.service.ts");
+
 
 
 
 
 var UserDashboardComponent = /** @class */ (function () {
-    function UserDashboardComponent(router, userService, route) {
+    function UserDashboardComponent(router, userService, route, authService) {
         this.router = router;
         this.userService = userService;
         this.route = route;
+        this.authService = authService;
     }
     UserDashboardComponent.prototype.ngOnInit = function () {
         this.appUserData = this.route.snapshot.data['user'];
-        this.appUsername = localStorage.getItem('authUser');
+        if (this.authService.loggedInUserName$) {
+            this.appUsername = this.authService.takeLoggedInUserName();
+        }
     };
     UserDashboardComponent.prototype.changeUserAddress = function () {
         this.router.navigate(['edit']);
@@ -211,7 +172,7 @@ var UserDashboardComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./user-dashboard.component.html */ "./src/app/user/user-dashboard/user-dashboard.component.html"),
             styles: [__webpack_require__(/*! ./user-dashboard.component.less */ "./src/app/user/user-dashboard/user-dashboard.component.less")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], src_app_auth_auth_service__WEBPACK_IMPORTED_MODULE_4__["AuthService"]])
     ], UserDashboardComponent);
     return UserDashboardComponent;
 }());
@@ -238,7 +199,7 @@ module.exports = "<h3>User Edit Address</h3>\n<h5>UserData</h5> \n<hr>\n<app-use
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1c2VyL3VzZXItZWRpdC91c2VyLWVkaXQuY29tcG9uZW50Lmxlc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3VzZXIvdXNlci1lZGl0L3VzZXItZWRpdC5jb21wb25lbnQubGVzcyJ9 */"
 
 /***/ }),
 
@@ -383,7 +344,6 @@ var userRoutes = [
                 path: '',
                 component: _user_dashboard_user_dashboard_component__WEBPACK_IMPORTED_MODULE_3__["UserDashboardComponent"],
                 canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]],
-                canDeactivate: [_guards_form_can_deactivate_guard__WEBPACK_IMPORTED_MODULE_5__["FormCanDeactivateGuard"]],
                 resolve: { user: _user_resolve_service__WEBPACK_IMPORTED_MODULE_8__["UserResolveService"] }
             },
             {
@@ -434,7 +394,7 @@ module.exports = "<router-outlet></router-outlet>"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1c2VyL3VzZXIuY29tcG9uZW50Lmxlc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3VzZXIvdXNlci5jb21wb25lbnQubGVzcyJ9 */"
 
 /***/ }),
 
@@ -494,10 +454,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_change_password_user_change_password_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./user-change-password/user-change-password.component */ "./src/app/user/user-change-password/user-change-password.component.ts");
 /* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./user.service */ "./src/app/user/user.service.ts");
 /* harmony import */ var _user_resolve_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./user-resolve.service */ "./src/app/user/user-resolve.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _auth_auth_interceptor_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../auth/auth.interceptor.service */ "./src/app/auth/auth.interceptor.service.ts");
-
-
 
 
 
@@ -530,12 +486,12 @@ var UserModule = /** @class */ (function () {
             ],
             exports: [
                 _user_dashboard_user_dashboard_component__WEBPACK_IMPORTED_MODULE_3__["UserDashboardComponent"],
-                _user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_8__["UserEditComponent"]
+                _user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_8__["UserEditComponent"],
+                _user_component__WEBPACK_IMPORTED_MODULE_7__["UserComponent"]
             ],
             providers: [
                 _user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"],
-                _user_resolve_service__WEBPACK_IMPORTED_MODULE_11__["UserResolveService"],
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"], useClass: _auth_auth_interceptor_service__WEBPACK_IMPORTED_MODULE_13__["AuthInterceptor"], multi: true },
+                _user_resolve_service__WEBPACK_IMPORTED_MODULE_11__["UserResolveService"]
             ]
         })
     ], UserModule);
@@ -565,16 +521,16 @@ __webpack_require__.r(__webpack_exports__);
 var UserService = /** @class */ (function () {
     function UserService(http) {
         this.http = http;
-        this.apiDataUrl = 'http://localhost:5001/api/';
+        this.apiDataUrl = 'http://localhost:5006/api/';
     }
     UserService.prototype.updateUserAddress = function (data) {
         return this.http.put(this.apiDataUrl + localStorage.getItem('authUser'), data);
     };
-    UserService.prototype.changeUserPassword = function (data) {
-        return this.http.put(this.apiDataUrl + localStorage.getItem('authUser'), data);
+    UserService.prototype.changeUserPassword = function (password) {
+        return this.http.put(this.apiDataUrl + 'password/' + localStorage.getItem('authUser'), password);
     };
     UserService.prototype.getUserAddress = function () {
-        return this.http.get(this.apiDataUrl + localStorage.getItem('authUser'));
+        return this.http.get(this.apiDataUrl + 'address/' + localStorage.getItem('authUser'));
     };
     UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({

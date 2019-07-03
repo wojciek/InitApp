@@ -1,3 +1,3 @@
 export interface ChangeAppUserPasswordCommand {
-    password: string;
+    Password: string;
 }
